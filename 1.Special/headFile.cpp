@@ -57,10 +57,10 @@ template<typename T>inline void write(T x){
 		pc(q[cnt]);
 	}
 }
-template<class T> inline T  Tmin(T &a,T &b) {return a=min(a,b);}
-template<class T> inline T  Tmax(T &a,T &b) {return a=max(a,b);}
-template<class T> inline T  Tsqr(T a) {return sqrt((a));}
-#define lowBit(i) (i)&(-i)
+template<class T> inline T  Omin(T &a,T &b) {return a=min(a,b);}
+template<class T> inline T  Omax(T &a,T &b) {return a=max(a,b);}
+template<class T> inline T  Osqr(T a) {return sqrt((a));}
+#define LOWBIT(i) (i)&(-i)
 #define REP(i,k) for(int i=0;i<(k);++i)
 #define FOR(i,j,k) for(int i=(j);i<(k);++i)
 #define MP make_pair
