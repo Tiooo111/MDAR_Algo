@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 
+#define OMID (r-l>>1)+l
 #define LOWBIT(i) (i)&(-i)
 #define REP(i,k) for(int i=0;i<(k);++i)
 #define FOR(i,j,k) for(int i=(j);i<(k);++i)
@@ -14,9 +15,9 @@
 #define PP pop_back
 #define SIZE(A) ((int)A.size())
 #define ALL(A) A.begin(),A.end()
-#define Parent(i) ((i)>>1)
-#define LChild(i) ((i)<<1)
-#define RChild(i) ((i)<<1|1)
+#define PA ((idx)>>1)
+#define LC ((idx)<<1)
+#define RC ((idx)<<1|1)
 #define ch() getchar()
 #define pc(x) putchar(x)
 
