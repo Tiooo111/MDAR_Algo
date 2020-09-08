@@ -21,18 +21,6 @@
 #define ch() getchar()
 #define pc(x) putchar(x)
 
-template<typename T>inline T read(){
-    int f, x;char c;
-    for(f=1,c=ch();!isdigit(c);c=ch())if(c=='-')f=-f;
-    for(x=0;isdigit(c);c=ch())x=x*10+(c&15);
-	return x*f;
-}
-template<typename T>inline void print(T x){
-    static char q[64];int cnt=0;
-    if(!x)pc('0');if(x<0)pc('-'),x=-x;
-    while(x)q[cnt++]=x%10+'0',x/=10;
-    while(cnt--)pc(q[cnt]);
-}
 template<class T> inline T  Omin(T &a,T &b) {return a=min(a,b);}
 template<class T> inline T  Omax(T &a,T &b) {return a=max(a,b);}
 template<class T> inline T  Osqr(T a) {return sqrt((a));}
@@ -47,6 +35,19 @@ using VVI=std::vector<VI>;
 
 const double pi=acos(-1.0);
 const double eps=1e-11;
+
+template<typename T>inline T read(){
+    int64 f, x;char c;
+    for(f=1,c=ch();!isdigit(c);c=ch())if(c=='-')f=-f;
+    for(x=0;isdigit(c);c=ch())x=x*10+(c&15);
+	return x*f;
+}
+template<typename T>inline void print(T x){
+    static char q[64];int cnt=0;
+    if(!x)pc('0');if(x<0)pc('-'),x=-x;
+    while(x)q[cnt++]=x%10+'0',x/=10;
+    while(cnt--)pc(q[cnt]);
+}
 //========================================================
 int main()
 {
