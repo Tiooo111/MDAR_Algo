@@ -79,16 +79,7 @@ int destroyList(duNode_t * pstHead) {
 		pstHead = NULL;
 	}
 	return iRet;
-}/* End of destroyList----------------------------------------------*/
-//正确的快速排序 2007/05/09
-/*
- 一趟快速排序的具体做法3是：附设两个指针low和high(即第一个和最后一个指针),
- 他们的初值分别为low和high设枢轴(一般为low的值pivot)记录的关键字
- (即本例子中的整形data)为pivot，则首先从high所指位置
- 起向前搜索到第一个关键字小于pivot的记录和枢轴记录交换，然后从low所指位置起
- 向后搜索，找到第一个关键字大于pivot的记录和枢轴记录相互交换，重复这两步直
- 至low = high为止。
-*/
+}
 duNode_t * partion(duNode_t * pstHead, duNode_t * pstLow, duNode_t * pstHigh) {
 	elemType iTmp = 0;
 	elemType pivot = 0;
