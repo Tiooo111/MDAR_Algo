@@ -5,6 +5,7 @@
 #include <cctype>
 #include <vector>
 #include <cmath>
+#include <cstring>
 
 #define OMID (r-l>>1)+l
 #define LOWBIT(i) (i)&(-i)
@@ -21,13 +22,13 @@
 #define ch() getchar()
 #define pc(x) putchar(x)
 
-template<class T> inline T  Omin(T &a,const T &b) {return a<b?a:b;}
-template<class T> inline T  Omax(T &a,const T &b) {return a>b?a:b;}
-template<class T> inline T  Osqr(const T &a) {return sqrt((a));}
+template<class T> inline T  Omin(T &a,T &b) {return a=min(a,b);}
+template<class T> inline T  Omax(T &a,T &b) {return a=max(a,b);}
+template<class T> inline T  Osqr(T a) {return sqrt((a));}
 
-using u32=unsigned int;
-using i64=long long;
-using u64=unsigned long long;
+using uint=unsigned int;
+using int64=long long;
+using uint64=unsigned long long;
 using ipair=std::pair<int,int>;
 using VI=std::vector<int>;
 using VD=std::vector<double>;
@@ -49,7 +50,43 @@ template<typename T>inline void print(T x){
     while(cnt--)pc(q[cnt]);
 }
 //========================================================
-int main()
+#define int long long 
+const int N = 50005;
+bool vis[N];
+int mu[N], pri[N], cnt, sum[N];
+int a, b, c, d, k;
+void init()
+{
+	mu[1] = 1;
+	for(int i = 2; i <= N; ++i)
+	{
+		if(!vis[i])
+		{
+			pri[cnt++] = i;
+			mu[i] = -1;
+		}
+		for(int j = 0; j < cnt && pri[j] * i <= N; ++j)
+		{
+			vis[i * pri[j]] = 1;
+			if(!(i % pri[j])) break;
+			else mu[i * pri[j]] = -mu[i];
+		}
+	}
+	for(int i = 1; i <= N; ++i) sum[i] = sum[i - 1] + mu[i];
+}
+int solo(int n, int m)
+{
+	int res = 0;
+	n /= k; m /= k;
+	for(int l = 1, r; l <= std::min(m, n); l = r + 1)
+	{
+		r = std::min(n/(n/l), m/(m/l));
+		res += (sum[r] - sum[l - 1]) * (n / l) * (m / l);
+	}
+	return res;
+}
+
+signed main()
 {
 #ifdef LOCAL
 	freopen("in.txt","r",stdin);
@@ -57,7 +94,20 @@ int main()
 #endif
 	clock_t stime = clock();
 	//========================================================
-	
+	init();
+	int T = read<int>();
+	while(T--)
+	{
+		a = read<int>();
+		b = read<int>();
+		c = read<int>();
+		d = read<int>();
+		k = read<int>();
+		int w = solo(b, d) - solo(b, (c - 1)) -
+			solo((a - 1), d) + solo((a - 1), (c - 1));
+		print(w);
+		pc('\n');
+	}
 	//========================================================
 	std::cerr << "Time:" << clock() - stime << std::endl; 
 	return 0;

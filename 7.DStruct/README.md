@@ -1,6 +1,7 @@
 # DStruct
-- 20.8.10 creat -> tree_v
-- 20.8.11 creat -> ODT
-- 20.8.12 creat -> segT
-- 20.8.13 creat -> List 
-- 20.8.16 creat -> persistable_tree 
+- tree_v : 树状树组
+- ODT : 珂朵莉树
+- segTree : 线段树
+- List : 链表 
+- persistable_segTree : 主席树 
+- heap : 堆

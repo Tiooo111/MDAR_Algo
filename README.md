@@ -1,9 +1,5 @@
 # MDAR_Algo
-
 ---
+	personal algorithm practice note 
 
-## Note
-- 20.8.10 树状数组
-- 20.8.11 珂朵莉树
-- 20.8.12 线段树
-- 20.9.7 math
+
