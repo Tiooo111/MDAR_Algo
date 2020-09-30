@@ -5,6 +5,7 @@
 #include <cctype>
 #include <vector>
 #include <cmath>
+#include <cstring>
 
 #define OMID (r-l>>1)+l
 #define LOWBIT(i) (i)&(-i)
@@ -37,7 +38,7 @@ const double pi=acos(-1.0);
 const double eps=1e-11;
 
 template<typename T>inline T read(){
-    int64 f, x;char c;
+    i64 f, x;char c;
     for(f=1,c=ch();!isdigit(c);c=ch())if(c=='-')f=-f;
     for(x=0;isdigit(c);c=ch())x=x*10+(c&15);
 	return x*f;
