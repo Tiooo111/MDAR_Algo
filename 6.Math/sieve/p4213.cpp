@@ -1,80 +1,126 @@
-#include<bits/stdc++.h>
+//#define LOCAL
+#include <iostream>
+#include <cstdio>
+#include <ctime>
+#include <cctype>
+#include <vector>
+#include <cmath>
+#include <cstring>
+#include <unordered_map>
 using namespace std;
 
-#define il inline
-#define re register
+#define OMID (r-l>>1)+l
+#define LOWBIT(i) (i)&(-i)
+#define REP(i,k) for(int i=0;i<(k);++i)
+#define FOR(i,j,k) for(int i=(j);i<(k);++i)
+#define MP make_pair
+#define PB push_back
+#define PP pop_back
+#define SIZE(A) ((int)A.size())
+#define ALL(A) A.begin(),A.end()
+#define PA ((idx)>>1)
+#define LC ((idx)<<1)
+#define RC ((idx)<<1|1)
+#define ch() getchar()
+#define pc(x) putchar(x)
 
+template<class T> inline T  Omin(T &a,const T &b) {return a<b?a:b;}
+template<class T> inline T  Omax(T &a,const T &b) {return a>b?a:b;}
+template<class T> inline T  Osqr(const T &a) {return sqrt((a));}
 
-#define ll long long
-#define mod 1000000007
-il int read()
-{
-    re int x=0,f=1;re char c=getchar();
-    while(c<'0'||c>'9') {if(c=='-') f=-1;c=getchar();}
-    while(c>='0'&&c<='9') x=x*10+c-48,c=getchar();
-    return x*f;
+using u32=unsigned int;
+using i64=long long;
+using u64=unsigned long long;
+using ipair=std::pair<int,int>;
+using VI=std::vector<int>;
+using VD=std::vector<double>;
+using VVI=std::vector<VI>;
+
+const double pi=acos(-1.0);
+const double eps=1e-11;
+
+template<typename T>inline T read(){
+    i64 f, x;char c;
+    for(f=1,c=ch();!isdigit(c);c=ch())if(c=='-')f=-f;
+    for(x=0;isdigit(c);c=ch())x=x*10+(c&15);
+	return x*f;
 }
-#define maxn 5000000
-ll pai[maxn+5];
-int prim[maxn+5],cnt,mu[maxn+5];
-bool vis[maxn+5];
-unordered_map<int,int> ans_mu;
-unordered_map<int,ll> ans_pai;
-il void init()
-{
-    mu[1]=pai[1]=1;
-    for(re int i=2;i<=maxn;++i)
-    {
-        if(!vis[i]) prim[++cnt]=i,mu[i]=-1,pai[i]=i-1;
-        for(re int j=1;j<=cnt&&prim[j]*i<=maxn;++j)
-        {
-            vis[prim[j]*i]=1;
-            if(i%prim[j]==0)
-            {
-                pai[i*prim[j]]=pai[i]*prim[j];
-                break;
-            }
-            pai[i*prim[j]]=pai[prim[j]]*pai[i];
-            mu[i*prim[j]]=-mu[i];
-        }
-    }
-    for(re int i=1;i<=maxn;++i) mu[i]+=mu[i-1],pai[i]+=pai[i-1];
+template<typename T>inline void print(T x){
+    static char q[64];int cnt=0;
+    if(!x)pc('0');if(x<0)pc('-'),x=-x;
+    while(x)q[cnt++]=x%10+'0',x/=10;
+    while(cnt--)pc(q[cnt]);
 }
-il ll get_pai(ll x)
+//========================================================
+
+const int MAXN = 2e6;
+i64 mu[MAXN], sum_mu[MAXN];
+int p[MAXN], v[MAXN], tot;
+std::unordered_map <int, int> mp;
+void pre()
 {
-    if(x<=maxn) return pai[x];
-    if(ans_pai[x]) return ans_pai[x];
-    ll ans=((1ll+x)*x)/2ll;
-    for(re int l=2,r;l<=x;l=r+1)//其实这里可能会爆int，可以改用用unsigned int
-    {
-        r=x/(x/l);
-        ans-=1ll*(r-l+1)*get_pai(x/l);
-    }
-    return ans_pai[x]=ans;
+	mu[1] = 1;
+	for(int i = 2; i < MAXN; ++i)
+	{
+		if(!v[i]) p[tot++] = i, mu[i] = -1;
+		for(int j = 0; j < tot && i * p[j] < MAXN; ++j)
+		{
+			v[i * p[j]] = 1;
+			if(i % p[j] == 0)
+			{
+				mu[i * p[j]] = 0;
+				break;
+			}
+			mu[i * p[j]] = -mu[i];
+		}
+	}
+	for(int i = 1; i < MAXN; ++i) sum_mu[i] = sum_mu[i-1]+mu[i];
 }
-il int get_mu(int x)
+inline i64 S(i64 n)
 {
-    if(x<=maxn) return mu[x];
-    if(ans_mu[x]) return ans_mu[x];
-    int ans=1;
-    for(re int l=2,r;l<=x;l=r+1)
-    {
-        r=x/(x/l);
-        ans-=(r-l+1)*get_mu(x/l);
-    }
-    return ans_mu[x]=ans;
+	return (n)*(n+1)>>1;
 }
-il void doit()
+inline i64 mu_res(i64 n)
 {
-    int T=read();
-    while(T--)
-    {
-        int x=read();
-        printf("%lld %d\n",get_pai(x),get_mu(x));
-    }
+	if(n < MAXN) return sum_mu[n];
+	if(mp.count(n)) return mp[n];
+	i64 ans = 1;
+	for(i64 l = 2, r; l <= n; l = r + 1)
+	{
+		r = std::min(n, n/(n/l));
+		ans -= 1ll*(mu_res(n/l)*(r-l+1));
+	}
+	return mp[n] = ans;
 }
-signed main()
+inline i64 phi_res(i64 n)
 {
-    init(),doit();
-    return 0;
+	i64 ans = 0;
+	for(i64 l = 1, r; l <= n; l = r + 1)
+	{
+		r = std::min(n, n/(n/l));
+		ans += 1ll*S(n/l)*(mu_res(r)-mu_res(l-1));
+	}
+	return ans;
+}
+int main()
+{
+#ifdef LOCAL
+	freopen("in.txt","r",stdin);
+	freopen("out.txt","w",stdout);
+#endif
+	clock_t stime = clock();
+	//========================================================
+	pre();
+	int T = read<int>();
+	i64 n;
+	while(T--)
+	{
+		n = read<i64>();
+		print(phi_res(n)); pc(' ');
+		print(mu_res(n)); pc('\n');
+	}
+	
+	//========================================================
+	std::cerr << "Time:" << clock() - stime << std::endl; 
+	return 0;
 }

@@ -8,35 +8,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 const int MAXN = 500005;
-struct node{
+struct node
+{
 	int val, num;
 }A[MAXN];
 int n, tree_V[MAXN], rank_[MAXN];
-int lowbit(int x){
+
+inline int lowbit(int x)
+{
 	return x & -x;
 }
-void  update(int ind, int x){
-	while(ind <= n)
-	{
-		tree_V[ind] += x;
-		ind += lowbit(ind);
-	}
-	return;
+
+inline void  update(int ind, int x)
+{
+	while(ind <= n) tree_V[ind] += x, ind += lowbit(ind);
 }
-int getSum(int ind){
+
+inline int getSum(int ind)
+{
 	int ans = 0;
-	while(ind)
-	{
-		ans += tree_V[ind];
-		ind -= lowbit(ind);
-	}
+	while(ind) ans += tree_V[ind], ind -= lowbit(ind);
 	return ans;
 }
-bool cmp1(node x, node y){
+
+bool cmp1(node x, node y)
+{
 	if(x.val == y.val) return x.num > y.num;
 	return x.val > y.val;
 }
-int main(){
+
+int main()
+{
 	scanf("%d", &n);
 	for(int i = 1; i <= n; ++i)
 	{
