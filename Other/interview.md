@@ -208,6 +208,17 @@ Kafka是分布式发布-订阅消息系统，它最初是由LinkedIn公司开发
 
 
 ## 七）. 数据库
+### 1. 语法
+```sql
+select * from table a where a.id = id
+select DISTINCT  //去重
+group by //分组
+having //条件过滤
+limit x offset y // 跳过y个，输出x个
+order by // 排序, [DESC]降序
+ifnull
+```
+
 ## 八）. linux
 ## 九）. algorithm
 ## 十）. 多线程
@@ -303,13 +314,6 @@ c++多线程有几种实现方法
 #### 线程池执行流程
 任务被提交到线程池，会先判断当前线程数量是否小于corePoolSize，如果小于则创建线程来执行提交的任务，否则将任务放入workQueue队列，如果workQueue满了，则判断当前线程数量是否小于maximumPoolSize,如果小于则创建线程执行任务，否则就会调用handler，以表示线程池拒绝接收任务。
 
+## 十一）.计算机组成原理
 
-
-
-
-
-
-
-
-    
 

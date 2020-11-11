@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿//#define LOCAL
+#include <iostream>
 #include <iomanip>
 #include <cmath>
 #include <ctime>
@@ -15,20 +16,25 @@
 #define MP make_pair
 #define PB push_back
 #define PP pop_back
+#define il inline
+#define cl const ll &
 //========================================================
 using ll = long long;
 using ull = unsigned long long;
 using lll = __int128;
 using ulll = unsigned __int128;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::abs;
 //========================================================
-template<class T> inline void read(T &x) 
+template<class T> inline void read(T &x)
 {
 	int f; char c = getchar();
 	for(f = x = 0; (c < 48 || c > 57) && c > 0; c = getchar()) if(c == '-') f = 1;
 	for(;c > 47 && c < 58; c = getchar()) x = (x << 3)+(x << 1)+(c & 15);
 	if (f) x = -x;
 }
-template<class T,class... Args> inline void read(T &x, Args&... args) { read(x), read(args...); }
 template<class T>inline void write(T x)
 {
     static char q[130]; int cnt = 0;
@@ -36,7 +42,10 @@ template<class T>inline void write(T x)
     while(x) q[cnt++]=x % 10 + 48, x /= 10;
     while(cnt--) putchar(q[cnt]);
 }
+template<class T,class... Args> inline void read(T &x, Args&... args) { read(x), read(args...); }
 template<class T>inline void write(T x, char c) { write(x); putchar(c); }
+template<class T>inline void xmax(T &x, const T &y) { x = x > y ? x : y; }
+template<class T>inline void xmin(T &x, const T &y) { x = x < y ? x : y; }
 //========================================================
 const double pi = acos(-1.0);
 const double eps = 1e-6;
@@ -52,6 +61,6 @@ int main()
 	//========================================================
 
 	//========================================================
-	std::cerr << "Time:" << clock() - stime << std::endl; 
+	std::cerr << "Time:" << clock() - stime << std::endl;
 	return 0;
 }
